@@ -18,12 +18,12 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
    const { email, password } = req.body;
 
-   const user = await User.findOne({ email, password });
-
-   console.log(user)
+   const user = await User.findOne({ email : email, password :password});
 
    if (user) {
+      if(user.email === email && user.password === password){
       return res.status(200).json({ status: true, message: "User logged in successfully", data: { id: user._id, name: user.fullName } });
+   }
    } else {
       return res.status(400).json({ status: false, message: "Incorrect username or password" });
    }

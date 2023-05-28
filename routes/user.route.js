@@ -18,14 +18,27 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
    const { email, password } = req.body;
 
-   const user = await User.findOne({ email : email, password :password});
+   const user = await User.findOne({ email : email});
 
    if (user) {
       if(user.email === email && user.password === password){
       return res.status(200).json({ status: true, message: "User logged in successfully", data: { id: user._id, name: user.fullName } });
+   } else {
+      return res.status(400).json({ status: false, message: "Incorrect Password" });
    }
    } else {
-      return res.status(400).json({ status: false, message: "Incorrect username or password" });
+      return res.status(400).json({ status: false, message: "Incorrect Email" });
+   }
+})
+
+
+router.get('/users', async (req, res) => {
+   const users = await User.find();
+
+   if (users) {
+      return res.status(200).json({ status: true, message: "User fetched successfully", data: users });
+   } else {
+      return res.status(400).json({ status: false, message: "Something went wrong" });
    }
 })
 

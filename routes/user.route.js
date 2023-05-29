@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ status: false, message: "Incorrect Password" });
    }
    } else {
-      return res.status(400).json({ status: false, message: "Incorrect Email" });
+      return res.status(400).json({ status: false, message: "User Not Found On Our Database" });
    }
 })
 

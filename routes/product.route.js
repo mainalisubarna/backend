@@ -17,7 +17,9 @@ router.post('/products', async (req, res) => {
 })
 
 router.get('/products', async (req, res) => {
+
    const products = await Product.find();
+
    if (products) {
       return res.status(200).json({ status: true, message: "Product fetched successfully", data: products });
    } else {
